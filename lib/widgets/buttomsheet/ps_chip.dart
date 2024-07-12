@@ -18,11 +18,11 @@ class PsChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 100,
-        height: isActive ? 64 : 56,
+        height: isActive ? 56 : 48,
         decoration: BoxDecoration(
           color: isActive ? PsAppcolor.secundary : PsAppcolor.white,
           border: Border.all(
-            width: 4,
+            width: 2,
             color: PsAppcolor.black.withOpacity(0.2),
           ),
           borderRadius: BorderRadius.circular(8),
@@ -34,7 +34,7 @@ class PsChip extends StatelessWidget {
                     blurRadius: 4,
                   )
                 : BoxShadow(
-                    color: PsAppcolor.black.withOpacity(0.1),
+                    color: PsAppcolor.black.withOpacity(0.05),
                     offset: const Offset(0, 2),
                     blurRadius: 2,
                   ),
