@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_safe_application/screens/add_kid_screen/add_kid_screen.dart';
 
 void main() {
   runApp(
@@ -15,9 +16,10 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: AddKidScreen(),
         ),
       ),
     );
