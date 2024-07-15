@@ -2,29 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class PSCircularPercentIndicator extends StatelessWidget {
-  final double radius;
-  final double lineWidth;
   final double progressPercent;
-  final String numberMinutes;
+  final String? numberMinutes;
   const PSCircularPercentIndicator({
     super.key,
-    required this.radius,
-    required this.lineWidth,
     required this.progressPercent,
-    required this.numberMinutes,
+    this.numberMinutes,
   });
 
   @override
   Widget build(BuildContext context) {
     return CircularPercentIndicator(
-      radius: radius,
-      lineWidth: lineWidth,
+      radius: 35,
+      lineWidth: 6.0,
       percent: progressPercent,
       center: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            numberMinutes,
+            numberMinutes ?? "error numberMinutes",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 23.0,

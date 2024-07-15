@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:play_safe_application/widgets/circular_percent_indicator/ps_circular_percent_indicator.dart';
 
-//!Cant make optional parameters
 class CardContainer extends StatelessWidget {
-  final String tittle;
-  final String subTittle;
+  final String? tittle;
+  final String? subTittle;
   final double progressPercent;
-  final String minutes;
-  final VoidCallback onPressed;
+  final String? minutes;
+  final Function()? onPressed;
   const CardContainer({
     super.key,
-    required this.tittle,
-    required this.subTittle,
+    this.tittle,
+    this.subTittle,
     required this.progressPercent,
-    required this.minutes,
-    required this.onPressed,
+    this.minutes,
+    this.onPressed,
   });
 
   @override
@@ -40,7 +39,7 @@ class CardContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      subTittle,
+                      subTittle ?? "error subTittle",
                       style: const TextStyle(
                         color: Color(0xFF3C6E71),
                         fontWeight: FontWeight.w700,
@@ -57,7 +56,7 @@ class CardContainer extends StatelessWidget {
                         horizontal: 5.0,
                       ),
                       child: Text(
-                        tittle,
+                        tittle ?? "error tittle",
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Montserrat',
@@ -68,8 +67,6 @@ class CardContainer extends StatelessWidget {
                 ),
               ),
               PSCircularPercentIndicator(
-                radius: 35,
-                lineWidth: 6.0,
                 progressPercent: progressPercent,
                 numberMinutes: minutes,
               ),

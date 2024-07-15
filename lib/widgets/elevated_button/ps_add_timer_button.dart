@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class PSAddTimerButton extends StatelessWidget {
   final IconData? icon;
-  final VoidCallback? onPressed;
+  final Function()? onPressed;
   const PSAddTimerButton({
     super.key,
     this.icon,
-    required this.onPressed,
+    this.onPressed,
   });
 
   @override
