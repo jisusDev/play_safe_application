@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PsChip extends StatelessWidget {
   final String? text;
@@ -43,10 +44,8 @@ class PsChip extends StatelessWidget {
         child: Center(
           child: Text(
             text ?? 'error',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: isActive ? PsAppcolor.white : PsAppcolor.primary,
+            style: PsTextStyle.regular(
+              isActive ? PsAppcolor.white : PsAppcolor.primary,
             ),
           ),
         ),

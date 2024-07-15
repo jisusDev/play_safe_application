@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PsButton extends StatelessWidget {
   final String? text;
@@ -32,10 +33,7 @@ class PsButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
           child: Text(
             text ?? 'Error',
-            style: const TextStyle(
-                color: PsAppcolor.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500),
+            style: PsTextStyle.regular(PsAppcolor.white),
           ),
         ),
       ),
