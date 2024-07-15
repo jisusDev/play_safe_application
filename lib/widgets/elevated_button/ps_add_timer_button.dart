@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 
 class PSAddTimerButton extends StatelessWidget {
   final IconData? icon;
@@ -16,7 +17,7 @@ class PSAddTimerButton extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
+            color: PsAppcolor.grey,
             blurRadius: 8,
             offset: Offset(0, 4),
           ),
@@ -25,7 +26,9 @@ class PSAddTimerButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           elevation: const WidgetStatePropertyAll(8),
-          minimumSize: WidgetStateProperty.all(const Size(82, 82)),
+          minimumSize: WidgetStateProperty.all(
+            const Size(82, 82),
+          ),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),
@@ -35,9 +38,11 @@ class PSAddTimerButton extends StatelessWidget {
             const EdgeInsets.all(18.0),
           ),
           backgroundColor: WidgetStateProperty.all<Color>(
-            const Color(0xFF3C6E71),
+            PsAppcolor.primary,
           ),
-          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+          foregroundColor: WidgetStateProperty.all<Color>(
+            PsAppcolor.white,
+          ),
         ),
         onPressed: onPressed,
         child: Icon(

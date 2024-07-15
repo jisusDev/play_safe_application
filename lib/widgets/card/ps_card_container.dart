@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 import 'package:play_safe_application/widgets/circular_percent_indicator/ps_circular_percent_indicator.dart';
 
 class CardContainer extends StatelessWidget {
-  final String? tittle;
   final String? subTittle;
+  final String? tittle;
   final double progressPercent;
   final String? minutes;
   final Function()? onPressed;
@@ -24,7 +26,7 @@ class CardContainer extends StatelessWidget {
         width: 355,
         height: 101,
         decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
+          color: PsAppcolor.white,
           borderRadius: BorderRadius.circular(
             8.0,
           ),
@@ -40,27 +42,19 @@ class CardContainer extends StatelessWidget {
                   children: [
                     Text(
                       subTittle ?? "error subTittle",
-                      style: const TextStyle(
-                        color: Color(0xFF3C6E71),
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                        fontFamily: "Montserrat",
-                      ),
+                      style: PsTextStyle.titleH2(PsAppcolor.primary)
                     ),
                     const SizedBox(height: 4),
                     Container(
                       decoration: const BoxDecoration(
-                        color: Color(0xFF3C6E71),
+                        color: PsAppcolor.primary,
                       ),
                       padding: const EdgeInsets.symmetric(
                         horizontal: 5.0,
                       ),
                       child: Text(
                         tittle ?? "error tittle",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat',
-                        ),
+                        style: PsTextStyle.subTitle(PsAppcolor.white)
                       ),
                     ),
                   ],
