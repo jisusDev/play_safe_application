@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PsTextfield extends StatelessWidget {
   final TextEditingController? controller;
@@ -36,13 +37,9 @@ class PsTextfield extends StatelessWidget {
             fillColor: PsAppcolor.white,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: label,
-            labelStyle: const TextStyle(color: PsAppcolor.primary),
+            labelStyle: PsTextStyle.defaultFont(PsAppcolor.primary),
             hintText: placeholder,
-            hintStyle: TextStyle(
-              color: PsAppcolor.black.withOpacity(0.2),
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+            hintStyle: PsTextStyle.bigRegular(PsAppcolor.black.withOpacity(0.2)),
             enabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(
