@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 
 class PsTextfield extends StatelessWidget {
+  final TextEditingController? controller;
   final String? placeholder;
   final String? label;
   const PsTextfield({
     super.key,
     this.placeholder,
     this.label,
+    this.controller,
   });
 
   @override
@@ -26,6 +28,7 @@ class PsTextfield extends StatelessWidget {
           ],
         ),
         child: TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),

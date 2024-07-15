@@ -8,7 +8,7 @@ class PsChip extends StatelessWidget {
   const PsChip({
     super.key,
     this.text,
-    this.isActive = true,
+    this.isActive = false,
     this.onTap,
   });
 
