@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 
 class PsTextStyle {
   static const String fontFamily = "Montserrat";
@@ -41,6 +42,15 @@ class PsTextStyle {
     return TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w500,
+      color: color,
+      fontFamily: fontFamily,
+    );
+  }
+
+    static TextStyle regularDold(Color color) {
+    return TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
       color: color,
       fontFamily: fontFamily,
     );

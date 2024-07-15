@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 
 class PsBottomsheetBase extends StatelessWidget {
-  final List<Widget> buttonList;
+  final List<Widget> contentBottomsheet;
   const PsBottomsheetBase({
     super.key,
-    this.buttonList = const [],
+    this.contentBottomsheet = const [],
   });
 
   @override
@@ -40,8 +40,8 @@ class PsBottomsheetBase extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
-              children: buttonList.isNotEmpty
-                  ? buttonList
+              children: contentBottomsheet.isNotEmpty
+                  ? contentBottomsheet
                   : [
                       const Text(
                         'No buttons available',

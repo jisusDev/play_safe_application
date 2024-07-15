@@ -3,12 +3,12 @@ import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PsButton extends StatelessWidget {
-  final String? text;
+  final String? title;
   final Function()? onTap;
   final Color? backgorundColor;
   const PsButton({
     super.key,
-    this.text,
+    this.title,
     this.onTap,
     this.backgorundColor,
   });
@@ -32,7 +32,7 @@ class PsButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 40),
           child: Text(
-            text ?? 'Error',
+            title ?? 'Error',
             style: PsTextStyle.regular(PsAppcolor.white),
           ),
         ),
