@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 import 'package:play_safe_application/widgets/elevated_button/ps_add_timer_button.dart';
 import 'package:play_safe_application/widgets/image_and_text/ps_image_and_text.dart';
 
@@ -8,8 +9,10 @@ class EmptyKidScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFFECECEC),
-      body: SafeArea(child: _Body()),
+      backgroundColor: PsAppcolor.background,
+      body: SafeArea(
+        child: _Body(),
+      ),
     );
   }
 }
@@ -33,7 +36,9 @@ class _Body extends StatelessWidget {
                 children: [
                   Image(
                     height: 105,
-                    image: AssetImage("assets/images/wave.png"),
+                    image: AssetImage(
+                      "assets/images/wave.png",
+                    ),
                   ),
                   SizedBox(
                     height: 40,

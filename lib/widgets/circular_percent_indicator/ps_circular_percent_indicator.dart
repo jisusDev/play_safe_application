@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PSCircularPercentIndicator extends StatelessWidget {
   final double progressPercent;
@@ -21,25 +23,18 @@ class PSCircularPercentIndicator extends StatelessWidget {
         children: [
           Text(
             numberMinutes ?? "error numberMinutes",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 23.0,
-              color: Color(0xFF3C6E71),
-            ),
+            style: PsTextStyle.titleH1(PsAppcolor.primary)
           ),
-          const Text(
+          Text(
             "mins",
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 12.0,
-            ),
+            style: PsTextStyle.smallRegular(PsAppcolor.black)
           ),
           const SizedBox(
             height: 10,
-          )
+          ),
         ],
       ),
-      progressColor: const Color(0xFFE49E20),
+      progressColor: PsAppcolor.secundary,
       backgroundColor: Colors.grey.shade200,
       circularStrokeCap: CircularStrokeCap.round,
     );

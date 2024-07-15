@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 import 'package:play_safe_application/widgets/card/ps_card_container.dart';
 import 'package:play_safe_application/widgets/elevated_button/ps_add_timer_button.dart';
 
@@ -8,7 +9,7 @@ class AddKidScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFFECECEC),
+      backgroundColor: PsAppcolor.background,
       body: SafeArea(
         child: Center(
           child: _Body(),

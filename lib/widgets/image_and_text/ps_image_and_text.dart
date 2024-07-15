@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PSImageCenterAndText extends StatelessWidget {
   const PSImageCenterAndText({
@@ -7,27 +9,22 @@ class PSImageCenterAndText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image(
+        const Image(
           image: AssetImage(
             "assets/images/bro.png",
           ),
         ),
         Center(
           child: Padding(
-            padding: EdgeInsets.only(top: 32),
+            padding: const EdgeInsets.only(top: 32),
             child: Text(
               maxLines: 2,
               textAlign: TextAlign.center,
               "No hay jugadores activos actualmente",
-              style: TextStyle(
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: Color(0xFF3C6E71)
-              ),
+              style: PsTextStyle.titleH1(PsAppcolor.primary),
             ),
           ),
         )
