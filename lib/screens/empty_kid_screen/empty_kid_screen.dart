@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/screens/bottom_sheet_add_player_element.dart';
+import 'package:play_safe_application/widgets/buttomsheets/ps_bottomsheet_base.dart';
 import 'package:play_safe_application/widgets/elevated_button/ps_add_timer_button.dart';
 import 'package:play_safe_application/widgets/image_and_text/ps_image_and_text.dart';
 
@@ -47,7 +49,15 @@ class _Body extends StatelessWidget {
               ),
               PSAddTimerButton(
                 icon: Icons.alarm_add,
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    barrierColor: PsAppcolor.black.withOpacity(0.25),
+                    isDismissible: true,
+                    isScrollControlled: true,
+                    builder: (context) => const BottomSheetAddPlayerElement(),
+                  );
+                },
               ),
               const SizedBox(
                 width: 20,
