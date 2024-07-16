@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:play_safe_application/screens/add_kid_screen/add_kid_screen.dart';
-import 'package:play_safe_application/screens/empty_kid_screen/empty_kid_screen.dart';
+import 'package:play_safe_application/screens/dashboard_screen/screen/empty_kid_screen/empty_kid_screen.dart';
 
 void main() {
   runApp(
