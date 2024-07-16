@@ -25,7 +25,7 @@ class BottomSheetAddPlayerElement extends StatelessWidget {
         const SizedBox(height: 24),
         _titleSection('Elegir Tiempo'),
         const _ButtonsTime(),
-        const SizedBox(height: 16),
+        const SizedBox(height: 12),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 32),
           child: PsButton(
