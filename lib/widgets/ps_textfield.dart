@@ -3,6 +3,7 @@ import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 
 class PsTextfield extends StatelessWidget {
+  final Function(String)? onChanged;
   final TextEditingController? controller;
   final String? placeholder;
   final String? label;
@@ -11,6 +12,7 @@ class PsTextfield extends StatelessWidget {
     this.placeholder,
     this.label,
     this.controller,
+    this.onChanged,
   });
 
   @override
@@ -30,6 +32,7 @@ class PsTextfield extends StatelessWidget {
         ),
         child: TextFormField(
           controller: controller,
+          onChanged: onChanged,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -39,7 +42,8 @@ class PsTextfield extends StatelessWidget {
             labelText: label,
             labelStyle: PsTextStyle.defaultFont(PsAppcolor.primary),
             hintText: placeholder,
-            hintStyle: PsTextStyle.bigRegular(PsAppcolor.black.withOpacity(0.2)),
+            hintStyle:
+                PsTextStyle.bigRegular(PsAppcolor.black.withOpacity(0.2)),
             enabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(
