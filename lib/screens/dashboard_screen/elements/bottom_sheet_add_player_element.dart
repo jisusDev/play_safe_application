@@ -49,7 +49,7 @@ class BottomSheetAddPlayerElement extends StatelessWidget {
   }
 }
 
-List<int> timeList = [5, 15, 25, 35, 46, 60];
+List<int> timeList = [5, 15, 25, 35, 45, 60];
 
 class _ButtonsTime extends ConsumerWidget {
   const _ButtonsTime();
@@ -73,10 +73,11 @@ class _ButtonsTime extends ConsumerWidget {
           itemBuilder: (BuildContext context, int index) {
             final isActive = index == activeButtonIndex;
             return PsChip(
-              text: '15 min',
+              text: '${timeList[index]} min',
               isActive: isActive,
               onTap: () {
                 ref.read(activeButtonProvider.notifier).state = index;
+                ref.read(valuebuttonTime.notifier).state = timeList[index];
               },
             );
           },
