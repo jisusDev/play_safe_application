@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 
 class PsTextStyle {
   static const String fontFamily = "Montserrat";
