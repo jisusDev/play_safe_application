@@ -4,25 +4,34 @@ import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/config/colors/ps_appcolor.dart';
 import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
-import 'package:play_safe_application/widgets/buttomsheets/ps_bottomsheet_base.dart';
 
-class BottomSheetAddPlayerElement extends StatelessWidget {
+class BottomSheetAddPlayerElement extends ConsumerWidget {
   const BottomSheetAddPlayerElement({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final representativeController = TextEditingController();
+    final playerController = TextEditingController();
     return PsBottomsheetBase(
       height: 500,
       contentBottomsheet: [
         _titleSection('Agregar Jugador'),
-        const PsTextfield(
+        PsTextfield(
           label: 'Representante',
           placeholder: 'Francisco Colemanrez',
+          controller: representativeController,
+          onChanged: (value) {
+            ref.read(representativeUserProvider.notifier).state = value;
+          },
         ),
         const SizedBox(height: 8),
-        const PsTextfield(
+        PsTextfield(
           label: 'Jugador',
           placeholder: 'Gema Colemanrez',
+          controller: playerController,
+          onChanged: (value) {
+            ref.read(playerUserProvider.notifier).state = value;
+          },
         ),
         const SizedBox(height: 24),
         _titleSection('Elegir Tiempo'),
@@ -49,7 +58,7 @@ class BottomSheetAddPlayerElement extends StatelessWidget {
   }
 }
 
-List<int> timeList = [5, 15, 25, 35, 46, 60];
+List<int> timeList = [5, 15, 25, 35, 45, 60];
 
 class _ButtonsTime extends ConsumerWidget {
   const _ButtonsTime();
@@ -73,10 +82,12 @@ class _ButtonsTime extends ConsumerWidget {
           itemBuilder: (BuildContext context, int index) {
             final isActive = index == activeButtonIndex;
             return PsChip(
-              text: '15 min',
+              text: '${timeList[index]} min',
               isActive: isActive,
               onTap: () {
                 ref.read(activeButtonProvider.notifier).state = index;
+                ref.read(valuebuttonTimeProvider.notifier).state =
+                    timeList[index];
               },
             );
           },
