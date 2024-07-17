@@ -59,7 +59,7 @@ class _Body extends StatelessWidget {
                 },
               ),
               const SizedBox(
-                width: 20,
+                width: 30,
               ),
             ],
           )
