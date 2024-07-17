@@ -52,7 +52,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(
         title,
-        style: PsTextStyle.regularDold(PsAppcolor.black),
+        style: PsTextStyle.regularBold(PsAppcolor.black),
       ),
     );
   }
