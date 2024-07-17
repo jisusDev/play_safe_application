@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
+import 'package:play_safe_application/config/config.dart';
 
 class PsBottomsheetBase extends StatelessWidget {
   final List<Widget> contentBottomsheet;

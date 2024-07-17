@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
+import 'package:play_safe_application/config/config.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 
 class PsModal extends StatelessWidget {
@@ -8,7 +7,7 @@ class PsModal extends StatelessWidget {
   final String? description;
   final String? titleButton;
   final Function()? onTap;
-  
+
   const PsModal({
     super.key,
     this.title,
@@ -19,13 +18,12 @@ class PsModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Container(
-        decoration: BoxDecoration(
-          color: PsAppcolor.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
+    return Dialog(
+      backgroundColor: PsAppcolor.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: IntrinsicHeight(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
           child: Column(
@@ -36,7 +34,7 @@ class PsModal extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                description ?? 'No description',
+                description ?? 'No description', textAlign: TextAlign.center,
                 style: PsTextStyle.defaultFont(PsAppcolor.black),
               ),
               const SizedBox(height: 32),
