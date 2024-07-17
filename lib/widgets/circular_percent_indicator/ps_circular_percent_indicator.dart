@@ -13,29 +13,32 @@ class PSCircularPercentIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularPercentIndicator(
-      radius: 35,
-      lineWidth: 6.0,
-      percent: progressPercent,
-      center: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            numberMinutes ?? "error numberMinutes",
-            style: PsTextStyle.titleH1(PsAppcolor.primary)
-          ),
-          Text(
-            "mins",
-            style: PsTextStyle.smallRegular(PsAppcolor.black)
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: CircularPercentIndicator(
+        radius: 35,
+        lineWidth: 6.0,
+        percent: progressPercent,
+        center: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              numberMinutes ?? "error numberMinutes",
+              style: PsTextStyle.titleH1(PsAppcolor.primary),
+            ),
+            Text(
+              "mins",
+              style: PsTextStyle.smallRegular(PsAppcolor.black),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+        progressColor: PsAppcolor.secundary,
+        backgroundColor: Colors.grey.shade200,
+        circularStrokeCap: CircularStrokeCap.round,
       ),
-      progressColor: PsAppcolor.secundary,
-      backgroundColor: Colors.grey.shade200,
-      circularStrokeCap: CircularStrokeCap.round,
     );
   }
 }
