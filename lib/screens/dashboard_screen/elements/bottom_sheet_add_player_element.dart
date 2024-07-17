@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_safe_application/config/config.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
 
 class BottomSheetAddPlayerElement extends ConsumerWidget {
@@ -52,7 +51,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(
         title,
-        style: PsTextStyle.regularDold(PsAppcolor.black),
+        style: PsTextStyle.regularBold(PsAppcolor.black),
       ),
     );
   }

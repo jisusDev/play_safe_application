@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
-import 'package:play_safe_application/widgets/circular_percent_indicator/ps_circular_percent_indicator.dart';
+import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/widgets/widgets.dart';
 
 class CardContainer extends StatelessWidget {
   final String? subTittle;

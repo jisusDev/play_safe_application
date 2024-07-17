@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
+import 'package:play_safe_application/config/config.dart';
 
 class PsChip extends StatelessWidget {
   final String? text;

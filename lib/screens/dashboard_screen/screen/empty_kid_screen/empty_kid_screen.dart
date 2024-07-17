@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/screens/dashboard_screen/elements/bottom_sheet_add_player_element.dart';
-import 'package:play_safe_application/widgets/elevated_button/ps_add_timer_button.dart';
-import 'package:play_safe_application/widgets/image_and_text/ps_image_and_text.dart';
+import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/widgets/widgets.dart';
+import 'package:play_safe_application/screens/dashboard_screen/elements/elements.dart';
 
 class EmptyKidScreen extends StatelessWidget {
   const EmptyKidScreen({super.key});
@@ -41,9 +40,7 @@ class _Body extends StatelessWidget {
                       "assets/images/wave.png",
                     ),
                   ),
-                  SizedBox(
-                    height: 40,
-                  )
+                  SizedBox(height: 40),
                 ],
               ),
               PSAddTimerButton(
@@ -58,9 +55,7 @@ class _Body extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(
-                width: 30,
-              ),
+              const SizedBox(width: 30),
             ],
           )
         ],

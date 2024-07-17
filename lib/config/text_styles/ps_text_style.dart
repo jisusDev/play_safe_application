@@ -46,7 +46,7 @@ class PsTextStyle {
     );
   }
 
-    static TextStyle regularDold(Color color) {
+    static TextStyle regularBold(Color color) {
     return TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
