@@ -21,49 +21,51 @@ class CardContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
-        width: 355,
-        height: 101,
-        decoration: BoxDecoration(
-          color: PsAppcolor.white,
-          borderRadius: BorderRadius.circular(
-            8.0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 27),
+        child: Container(
+          height: 101,
+          decoration: BoxDecoration(
+            color: PsAppcolor.white,
+            borderRadius: BorderRadius.circular(
+              8.0,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      subTittle ?? "error subTittle",
-                      style: PsTextStyle.titleH2(PsAppcolor.primary)
-                    ),
-                    const SizedBox(height: 4),
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: PsAppcolor.primary,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        subTittle ?? "error subTittle",
+                        style: PsTextStyle.titleH2(PsAppcolor.primary)
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5.0,
+                      const SizedBox(height: 4),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: PsAppcolor.primary,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                        ),
+                        child: Text(
+                          tittle ?? "error tittle",
+                          style: PsTextStyle.subTitle(PsAppcolor.white)
+                        ),
                       ),
-                      child: Text(
-                        tittle ?? "error tittle",
-                        style: PsTextStyle.subTitle(PsAppcolor.white)
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              PSCircularPercentIndicator(
-                progressPercent: progressPercent,
-                numberMinutes: minutes,
-              ),
-            ],
+                PSCircularPercentIndicator(
+                  progressPercent: progressPercent,
+                  numberMinutes: minutes,
+                ),
+              ],
+            ),
           ),
         ),
       ),
