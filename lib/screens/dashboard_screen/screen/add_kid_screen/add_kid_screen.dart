@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/screens/dashboard_screen/elements/bottom_sheet_add_player_element.dart';
+import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/widgets/widgets.dart';
+import 'package:play_safe_application/screens/dashboard_screen/elements/elements.dart';
 import 'package:play_safe_application/screens/dashboard_screen/screen/empty_kid_screen/empty_kid_screen.dart';
-import 'package:play_safe_application/widgets/card/ps_card_container.dart';
-import 'package:play_safe_application/widgets/elevated_button/ps_add_timer_button.dart';
 
 class AddKidScreen extends StatelessWidget {
   const AddKidScreen({super.key});
