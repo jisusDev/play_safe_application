@@ -22,9 +22,8 @@ class CardContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 27),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Container(
-          height: 101,
           decoration: BoxDecoration(
             color: PsAppcolor.white,
             borderRadius: BorderRadius.circular(

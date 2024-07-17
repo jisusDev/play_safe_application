@@ -73,7 +73,6 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
       itemCount: cards.length,
       itemBuilder: (context, index) {
         return Column(
