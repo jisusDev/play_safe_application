@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_safe_application/screens/dashboard_screen/screen/add_kid_screen/add_kid_screen.dart';
 import 'package:play_safe_application/screens/dashboard_screen/screen/empty_kid_screen/empty_kid_screen.dart';
 
 void main() {
@@ -15,11 +16,11 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: EmptyKidScreen(),
+          child: AddKidScreen(),
         ),
       ),
     );
