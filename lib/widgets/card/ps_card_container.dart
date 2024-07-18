@@ -3,15 +3,15 @@ import 'package:play_safe_application/config/config.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 
 class CardContainer extends StatelessWidget {
-  final String? subTittle;
-  final String? tittle;
+  final String? title;
+  final String? subTitle;
   final double progressPercent;
   final String? minutes;
   final Function()? onPressed;
   const CardContainer({
     super.key,
-    this.tittle,
-    this.subTittle,
+    this.title,
+    this.subTitle,
     required this.progressPercent,
     this.minutes,
     this.onPressed,
@@ -40,8 +40,8 @@ class CardContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        subTittle ?? "error subTittle",
-                        style: PsTextStyle.titleH2(PsAppcolor.primary)
+                        title ?? "error subTittle",
+                        style: PsTextStyle.titleH2(PsAppcolor.primary),
                       ),
                       const SizedBox(height: 4),
                       Container(
@@ -52,8 +52,8 @@ class CardContainer extends StatelessWidget {
                           horizontal: 5.0,
                         ),
                         child: Text(
-                          tittle ?? "error tittle",
-                          style: PsTextStyle.subTitle(PsAppcolor.white)
+                          subTitle ?? "error tittle",
+                          style: PsTextStyle.subTitle(PsAppcolor.white),
                         ),
                       ),
                     ],

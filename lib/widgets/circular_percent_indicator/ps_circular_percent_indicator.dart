@@ -14,14 +14,15 @@ class PSCircularPercentIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: CircularPercentIndicator(
-        radius: 35,
+        radius: 42,
         lineWidth: 6.0,
         percent: progressPercent,
         center: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 8),
             Text(
               numberMinutes ?? "error numberMinutes",
               style: PsTextStyle.titleH1(PsAppcolor.primary),
