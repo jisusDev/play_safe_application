@@ -31,7 +31,7 @@ class PsCardEndPlayer extends StatelessWidget {
                 const Spacer(),
                 Text(
                   'Finalizar',
-                  style: PsTextStyle.regular(PsAppcolor.white),
+                  style: PsTextStyle.regularBold(PsAppcolor.white),
                 ),
                 const SizedBox(width: 4),
                 const Icon(
@@ -59,10 +59,11 @@ class _DataUserSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title ?? 'no name',
-          style: PsTextStyle.titleH1(PsAppcolor.white),
+          style: PsTextStyle.titleH2(PsAppcolor.white),
         ),
         Container(
           decoration: BoxDecoration(
@@ -70,7 +71,7 @@ class _DataUserSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(2),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Text(
               subTitle ?? 'no subtitle',
               style: PsTextStyle.subTitle(PsAppcolor.primary),
