@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/domain/entities/timer_model.dart';
+import 'package:play_safe_application/providers/temporary_list_providers.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
 
@@ -11,6 +13,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final representativeController = TextEditingController();
     final playerController = TextEditingController();
+
     return PsBottomsheetBase(
       height: 500,
       contentBottomsheet: [
@@ -36,10 +39,21 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
         _titleSection('Elegir Tiempo'),
         const _ButtonsTime(),
         const SizedBox(height: 12),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 32),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32),
           child: PsButton(
             title: 'Seleccionar Temporizador',
+            onTap: () {
+              final selectedTimeInMinutes = ref.read(valuebuttonTimeProvider);
+              final selectedTimeInSeconds = selectedTimeInMinutes * 60;
+              ref.read(timersProvider.notifier).addTimer(
+                    TimerModel(
+                      duration: selectedTimeInSeconds,
+                      remainingTime: selectedTimeInSeconds,
+                    ),
+                  );
+              Navigator.pop(context);
+            },
           ),
         ),
       ],
