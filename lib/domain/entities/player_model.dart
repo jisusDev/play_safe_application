@@ -1,10 +1,10 @@
-class CardPlayerModel {
+class PlayerModel {
   final String? id;
   final String? tittle;
   final String? subTittle;
   final DateTime? completedAt;
 
-  CardPlayerModel({
+  PlayerModel({
     this.id,
     this.tittle,
     this.subTittle,
@@ -15,13 +15,13 @@ class CardPlayerModel {
     return completedAt != null;
   }
 
-  CardPlayerModel copyWith({
+  PlayerModel copyWith({
     String? id,
     String? tittle,
     String? subTitle,
     DateTime? completedAt,
   }) =>
-      CardPlayerModel(
+      PlayerModel(
         id: id ?? this.id,
         tittle: tittle ?? this.tittle,
         subTittle: subTitle ?? subTittle,
