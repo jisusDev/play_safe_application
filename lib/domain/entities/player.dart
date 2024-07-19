@@ -7,15 +7,13 @@ class Player {
 
   Id? isarId;
   
-  final String? id;
   final String? title;
-  final String? subTittle;
-  final DateTime? completedAt;
+  final String? subTitle;
+  final int? selectTimeInSeconds;
 
   Player({
-    this.id,
     this.title,
-    this.subTittle,
-    this.completedAt,
+    this.subTitle,
+    this.selectTimeInSeconds,
   });
 }

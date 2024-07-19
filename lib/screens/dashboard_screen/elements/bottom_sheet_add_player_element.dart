@@ -49,11 +49,12 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
               //implementation
               final representative = ref.read(representativeUserProvider);
               final playerName = ref.read(playerUserProvider);
+              final selectTimeInSeconds = ref.read(selectTimeInSecondProvider);
               if (representative.isNotEmpty && playerName.isNotEmpty) {
                 final newPlayer = Player(
                   title: representative,
-                  subTittle: playerName,
-                  completedAt: DateTime.now(),
+                  subTitle: playerName,
+                  selectTimeInSeconds: selectTimeInSeconds,
                 );
 
                 ref.watch(playerRepositoryProvider).addplayer(newPlayer);
@@ -61,7 +62,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
               } else {
                 //implementation
 
-                final selectedTimeInMinutes = ref.read(valuebuttonTimeProvider);
+                final selectedTimeInMinutes = ref.read(selectTimeInMinuteProvider);
                 final selectedTimeInSeconds = selectedTimeInMinutes * 60;
                 ref.read(timersProvider.notifier).addTimer(
                       TimerModel(
@@ -117,7 +118,7 @@ class _ButtonsTime extends ConsumerWidget {
               isActive: isActive,
               onTap: () {
                 ref.read(activeButtonProvider.notifier).state = index;
-                ref.read(valuebuttonTimeProvider.notifier).state =
+                ref.read(selectTimeInMinuteProvider.notifier).state =
                     timeList[index];
               },
             );

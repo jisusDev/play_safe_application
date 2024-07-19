@@ -17,24 +17,19 @@ const PlayerSchema = CollectionSchema(
   name: r'Player',
   id: -1052842935974721688,
   properties: {
-    r'completedAt': PropertySchema(
+    r'selectTimeInSeconds': PropertySchema(
       id: 0,
-      name: r'completedAt',
-      type: IsarType.dateTime,
+      name: r'selectTimeInSeconds',
+      type: IsarType.long,
     ),
-    r'id': PropertySchema(
+    r'subTitle': PropertySchema(
       id: 1,
-      name: r'id',
+      name: r'subTitle',
       type: IsarType.string,
     ),
-    r'subTittle': PropertySchema(
+    r'title': PropertySchema(
       id: 2,
-      name: r'subTittle',
-      type: IsarType.string,
-    ),
-    r'tittle': PropertySchema(
-      id: 3,
-      name: r'tittle',
+      name: r'title',
       type: IsarType.string,
     )
   },
@@ -59,13 +54,7 @@ int _playerEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.id;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.subTittle;
+    final value = object.subTitle;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -85,10 +74,9 @@ void _playerSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.completedAt);
-  writer.writeString(offsets[1], object.id);
-  writer.writeString(offsets[2], object.subTittle);
-  writer.writeString(offsets[3], object.title);
+  writer.writeLong(offsets[0], object.selectTimeInSeconds);
+  writer.writeString(offsets[1], object.subTitle);
+  writer.writeString(offsets[2], object.title);
 }
 
 Player _playerDeserialize(
@@ -98,10 +86,9 @@ Player _playerDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Player(
-    completedAt: reader.readDateTimeOrNull(offsets[0]),
-    id: reader.readStringOrNull(offsets[1]),
-    subTittle: reader.readStringOrNull(offsets[2]),
-    title: reader.readStringOrNull(offsets[3]),
+    selectTimeInSeconds: reader.readLongOrNull(offsets[0]),
+    subTitle: reader.readStringOrNull(offsets[1]),
+    title: reader.readStringOrNull(offsets[2]),
   );
   object.isarId = id;
   return object;
@@ -115,12 +102,10 @@ P _playerDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
-    case 3:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -215,219 +200,6 @@ extension PlayerQueryWhere on QueryBuilder<Player, Player, QWhereClause> {
 }
 
 extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
-  QueryBuilder<Player, Player, QAfterFilterCondition> completedAtIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'completedAt',
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> completedAtIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'completedAt',
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> completedAtEqualTo(
-      DateTime? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'completedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> completedAtGreaterThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'completedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> completedAtLessThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'completedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> completedAtBetween(
-    DateTime? lower,
-    DateTime? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'completedAt',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idContains(String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idMatches(String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'id',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterFilterCondition> idIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'id',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<Player, Player, QAfterFilterCondition> isarIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -496,36 +268,110 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleIsNull() {
+  QueryBuilder<Player, Player, QAfterFilterCondition>
+      selectTimeInSecondsIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'subTittle',
+        property: r'selectTimeInSeconds',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleIsNotNull() {
+  QueryBuilder<Player, Player, QAfterFilterCondition>
+      selectTimeInSecondsIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'subTittle',
+        property: r'selectTimeInSeconds',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleEqualTo(
+  QueryBuilder<Player, Player, QAfterFilterCondition>
+      selectTimeInSecondsEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'selectTimeInSeconds',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition>
+      selectTimeInSecondsGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'selectTimeInSeconds',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition>
+      selectTimeInSecondsLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'selectTimeInSeconds',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition>
+      selectTimeInSecondsBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'selectTimeInSeconds',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'subTitle',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'subTitle',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'subTittle',
+        property: r'subTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleGreaterThan(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -533,14 +379,14 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'subTittle',
+        property: r'subTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleLessThan(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -548,14 +394,14 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'subTittle',
+        property: r'subTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleBetween(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -564,7 +410,7 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'subTittle',
+        property: r'subTitle',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -574,104 +420,104 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleStartsWith(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'subTittle',
+        property: r'subTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleEndsWith(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'subTittle',
+        property: r'subTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleContains(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'subTittle',
+        property: r'subTitle',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleMatches(
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'subTittle',
+        property: r'subTitle',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleIsEmpty() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'subTittle',
+        property: r'subTitle',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> subTittleIsNotEmpty() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> subTitleIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'subTittle',
+        property: r'subTitle',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleIsNull() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'tittle',
+        property: r'title',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleIsNotNull() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'tittle',
+        property: r'title',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleEqualTo(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'tittle',
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleGreaterThan(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -679,14 +525,14 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'tittle',
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleLessThan(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -694,14 +540,14 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'tittle',
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleBetween(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -710,7 +556,7 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'tittle',
+        property: r'title',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -720,69 +566,69 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleStartsWith(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'tittle',
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleEndsWith(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'tittle',
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleContains(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'tittle',
+        property: r'title',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleMatches(
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'tittle',
+        property: r'title',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleIsEmpty() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'tittle',
+        property: r'title',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> tittleIsNotEmpty() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> titleIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'tittle',
+        property: r'title',
         value: '',
       ));
     });
@@ -794,80 +640,44 @@ extension PlayerQueryObject on QueryBuilder<Player, Player, QFilterCondition> {}
 extension PlayerQueryLinks on QueryBuilder<Player, Player, QFilterCondition> {}
 
 extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
-  QueryBuilder<Player, Player, QAfterSortBy> sortByCompletedAt() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortBySelectTimeInSeconds() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'completedAt', Sort.asc);
+      return query.addSortBy(r'selectTimeInSeconds', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> sortByCompletedAtDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortBySelectTimeInSecondsDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'completedAt', Sort.desc);
+      return query.addSortBy(r'selectTimeInSeconds', Sort.desc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> sortById() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortBySubTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r'subTitle', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> sortByIdDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortBySubTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(r'subTitle', Sort.desc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> sortBySubTittle() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'subTittle', Sort.asc);
+      return query.addSortBy(r'title', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> sortBySubTittleDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'subTittle', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterSortBy> sortByTittle() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'tittle', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterSortBy> sortByTittleDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'tittle', Sort.desc);
+      return query.addSortBy(r'title', Sort.desc);
     });
   }
 }
 
 extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
-  QueryBuilder<Player, Player, QAfterSortBy> thenByCompletedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'completedAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterSortBy> thenByCompletedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'completedAt', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterSortBy> thenById() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Player, Player, QAfterSortBy> thenByIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
-    });
-  }
-
   QueryBuilder<Player, Player, QAfterSortBy> thenByIsarId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isarId', Sort.asc);
@@ -880,56 +690,61 @@ extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> thenBySubTittle() {
+  QueryBuilder<Player, Player, QAfterSortBy> thenBySelectTimeInSeconds() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'subTittle', Sort.asc);
+      return query.addSortBy(r'selectTimeInSeconds', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> thenBySubTittleDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> thenBySelectTimeInSecondsDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'subTittle', Sort.desc);
+      return query.addSortBy(r'selectTimeInSeconds', Sort.desc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> thenByTittle() {
+  QueryBuilder<Player, Player, QAfterSortBy> thenBySubTitle() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'tittle', Sort.asc);
+      return query.addSortBy(r'subTitle', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> thenByTittleDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> thenBySubTitleDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'tittle', Sort.desc);
+      return query.addSortBy(r'subTitle', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByTitle() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'title', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByTitleDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'title', Sort.desc);
     });
   }
 }
 
 extension PlayerQueryWhereDistinct on QueryBuilder<Player, Player, QDistinct> {
-  QueryBuilder<Player, Player, QDistinct> distinctByCompletedAt() {
+  QueryBuilder<Player, Player, QDistinct> distinctBySelectTimeInSeconds() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'completedAt');
+      return query.addDistinctBy(r'selectTimeInSeconds');
     });
   }
 
-  QueryBuilder<Player, Player, QDistinct> distinctById(
+  QueryBuilder<Player, Player, QDistinct> distinctBySubTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'id', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'subTitle', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Player, Player, QDistinct> distinctBySubTittle(
+  QueryBuilder<Player, Player, QDistinct> distinctByTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'subTittle', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<Player, Player, QDistinct> distinctByTittle(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'tittle', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
     });
   }
 }
@@ -941,27 +756,21 @@ extension PlayerQueryProperty on QueryBuilder<Player, Player, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Player, DateTime?, QQueryOperations> completedAtProperty() {
+  QueryBuilder<Player, int?, QQueryOperations> selectTimeInSecondsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'completedAt');
+      return query.addPropertyName(r'selectTimeInSeconds');
     });
   }
 
-  QueryBuilder<Player, String?, QQueryOperations> idProperty() {
+  QueryBuilder<Player, String?, QQueryOperations> subTitleProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'subTitle');
     });
   }
 
-  QueryBuilder<Player, String?, QQueryOperations> subTittleProperty() {
+  QueryBuilder<Player, String?, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'subTittle');
-    });
-  }
-
-  QueryBuilder<Player, String?, QQueryOperations> tittleProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'tittle');
+      return query.addPropertyName(r'title');
     });
   }
 }
