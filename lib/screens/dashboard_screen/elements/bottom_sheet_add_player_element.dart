@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
-import 'package:play_safe_application/domain/entities/timer_model.dart';
-import 'package:play_safe_application/providers/temporary_list_providers.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
+import 'package:play_safe_application/domain/entities/player.dart';
+import 'package:play_safe_application/domain/entities/timer_model.dart';
 
 class BottomSheetAddPlayerElement extends ConsumerWidget {
   const BottomSheetAddPlayerElement({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final representative = ref.read(representativeUserProvider);
+    final playerName = ref.read(playerUserProvider);
+    final selectTimeInSeconds = ref.read(selectTimeInSecondProvider);
+
     final representativeController = TextEditingController();
     final playerController = TextEditingController();
 
@@ -42,16 +46,23 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 32),
           child: PsButton(
-            title: 'Seleccionar Temporizador',
+            title: 'Crear Temporizador',
             onTap: () {
-              final selectedTimeInMinutes = ref.read(valuebuttonTimeProvider);
-              final selectedTimeInSeconds = selectedTimeInMinutes * 60;
+              final newPlayer = Player(
+                title: representative,
+                subTitle: playerName,
+                selectTimeInSeconds: selectTimeInSeconds,
+              );
+
+              ref.watch(playerRepositoryProvider).addplayer(newPlayer);
+
               ref.read(timersProvider.notifier).addTimer(
                     TimerModel(
-                      duration: selectedTimeInSeconds,
-                      remainingTime: selectedTimeInSeconds,
+                      duration: selectTimeInSeconds,
+                      remainingTime: selectTimeInSeconds,
                     ),
                   );
+
               Navigator.pop(context);
             },
           ),
@@ -99,7 +110,7 @@ class _ButtonsTime extends ConsumerWidget {
               isActive: isActive,
               onTap: () {
                 ref.read(activeButtonProvider.notifier).state = index;
-                ref.read(valuebuttonTimeProvider.notifier).state =
+                ref.read(selectTimeInMinuteProvider.notifier).state =
                     timeList[index];
               },
             );

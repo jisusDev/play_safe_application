@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/domain/entities/timer_model.dart';
-import 'package:play_safe_application/providers/temporary_list_providers.dart';
+import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
 import 'package:play_safe_application/screens/dashboard_screen/elements/bottom_sheet_add_player_element.dart';
 import 'package:play_safe_application/screens/dashboard_screen/screen/empty_kid_screen/empty_kid_screen.dart';
-import 'package:play_safe_application/widgets/widgets.dart';
 
 class AddKidScreen extends ConsumerWidget {
   const AddKidScreen({super.key});
