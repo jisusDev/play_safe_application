@@ -14,6 +14,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
     final representativeController = TextEditingController();
     final playerController = TextEditingController();
     final formKey = GlobalKey<FormState>();
+    final futureTime = ref.watch(updateTimeProvider);
 
     return PsBottomsheetBase(
       height: 550,
@@ -62,6 +63,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                         title: representative,
                         subTitle: playerName,
                         selectTimeInSeconds: selectTimeInSeconds,
+                        futureTime: futureTime,
                       );
 
                       ref.watch(playerRepositoryProvider).addplayer(newPlayer);
