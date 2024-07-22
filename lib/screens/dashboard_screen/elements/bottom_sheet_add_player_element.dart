@@ -52,8 +52,11 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                     if (formKey.currentState!.validate()) {
                       final representative = representativeController.text;
                       final playerName = playerController.text;
+                      final selectTimeInMinute =
+                          ref.read(selectTimeInMinuteProvider);
+                      const secondsToMinute = 60;
                       final selectTimeInSeconds =
-                          ref.read(selectTimeInSecondProvider);
+                          selectTimeInMinute * secondsToMinute;
 
                       final newPlayer = Player(
                         title: representative,
