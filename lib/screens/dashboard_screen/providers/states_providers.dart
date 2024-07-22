@@ -13,6 +13,8 @@ final selectTimeInSecondProvider = StateProvider<int>((ref) {
   return valueInSeconds;
 });
 
+final futureTimeProvider = StateProvider<String>((ref) => '');
+
 final representativeUserProvider = StateProvider<String>((ref) => '');
 
 final playerUserProvider = StateProvider<String>((ref) => '');
