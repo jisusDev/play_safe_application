@@ -1,0 +1,1 @@
+export 'package:play_safe_application/utils/validators.dart';

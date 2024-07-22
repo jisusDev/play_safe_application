@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:play_safe_application/config/colors/ps_appcolor.dart';
-import 'package:play_safe_application/config/text_styles/ps_text_style.dart';
+import 'package:flutter/services.dart';
+import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/utils/utils.dart';
 
 class PsTextfield extends StatelessWidget {
   final Function(String)? onChanged;
@@ -22,17 +23,20 @@ class PsTextfield extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: PsAppcolor.black.withOpacity(0.1),
-              blurRadius: 2,
-              offset: const Offset(0, 2),
-            ),
-          ],
         ),
         child: TextFormField(
           controller: controller,
           onChanged: onChanged,
+          validator: Validators.validateName,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          textCapitalization: TextCapitalization.words,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z]+$')),
+          ],
+          maxLength: 15,
+          buildCounter: (BuildContext context,
+                  {int? currentLength, int? maxLength, bool? isFocused}) =>
+              null,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -54,6 +58,20 @@ class PsTextfield extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(
                 color: PsAppcolor.primary,
+                width: 2,
+              ),
+            ),
+            errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(
+                color: Colors.red,
+                width: 2,
+              ),
+            ),
+            focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(
+                color: Colors.red,
                 width: 2,
               ),
             ),

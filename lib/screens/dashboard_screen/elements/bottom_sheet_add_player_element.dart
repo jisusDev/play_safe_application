@@ -11,60 +11,71 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final representative = ref.read(representativeUserProvider);
-    final playerName = ref.read(playerUserProvider);
-    final selectTimeInSeconds = ref.read(selectTimeInSecondProvider);
-
     final representativeController = TextEditingController();
     final playerController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
 
     return PsBottomsheetBase(
-      height: 500,
+      height: 550,
       contentBottomsheet: [
         _titleSection('Agregar Jugador'),
-        PsTextfield(
-          label: 'Representante',
-          placeholder: 'Francisco Colemanrez',
-          controller: representativeController,
-          onChanged: (value) {
-            ref.read(representativeUserProvider.notifier).state = value;
-          },
-        ),
-        const SizedBox(height: 8),
-        PsTextfield(
-          label: 'Jugador',
-          placeholder: 'Gema Colemanrez',
-          controller: playerController,
-          onChanged: (value) {
-            ref.read(playerUserProvider.notifier).state = value;
-          },
-        ),
-        const SizedBox(height: 24),
-        _titleSection('Elegir Tiempo'),
-        const _ButtonsTime(),
-        const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32),
-          child: PsButton(
-            title: 'Crear Temporizador',
-            onTap: () {
-              final newPlayer = Player(
-                title: representative,
-                subTitle: playerName,
-                selectTimeInSeconds: selectTimeInSeconds,
-              );
+        Form(
+          key: formKey,
+          child: Column(
+            children: [
+              PsTextfield(
+                label: 'Representante',
+                placeholder: 'Francisco Colemanrez',
+                controller: representativeController,
+                onChanged: (value) {
+                  ref.read(representativeUserProvider.notifier).state = value;
+                },
+              ),
+              const SizedBox(height: 24),
+              PsTextfield(
+                label: 'Jugador',
+                placeholder: 'Gema Colemanrez',
+                controller: playerController,
+                onChanged: (value) {
+                  ref.read(playerUserProvider.notifier).state = value;
+                },
+              ),
+              const SizedBox(height: 24),
+              _titleSection('Elegir Tiempo'),
+              const _ButtonsTime(),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.only(top: 32),
+                child: PsButton(
+                  title: 'Crear Temporizador',
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      final representative = representativeController.text;
+                      final playerName = playerController.text;
+                      final selectTimeInSeconds =
+                          ref.read(selectTimeInSecondProvider);
 
-              ref.watch(playerRepositoryProvider).addplayer(newPlayer);
+                      final newPlayer = Player(
+                        title: representative,
+                        subTitle: playerName,
+                        selectTimeInSeconds: selectTimeInSeconds,
+                      );
 
-              ref.read(timersProvider.notifier).addTimer(
-                    TimerModel(
-                      duration: selectTimeInSeconds,
-                      remainingTime: selectTimeInSeconds,
-                    ),
-                  );
+                      ref.watch(playerRepositoryProvider).addplayer(newPlayer);
 
-              Navigator.pop(context);
-            },
+                      ref.read(timersProvider.notifier).addTimer(
+                            TimerModel(
+                              duration: selectTimeInSeconds,
+                              remainingTime: selectTimeInSeconds,
+                            ),
+                          );
+
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ],
