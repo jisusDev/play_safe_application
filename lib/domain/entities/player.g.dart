@@ -17,9 +17,9 @@ const PlayerSchema = CollectionSchema(
   name: r'Player',
   id: -1052842935974721688,
   properties: {
-    r'futureTime': PropertySchema(
+    r'finishTime': PropertySchema(
       id: 0,
-      name: r'futureTime',
+      name: r'finishTime',
       type: IsarType.dateTime,
     ),
     r'selectTimeInSeconds': PropertySchema(
@@ -27,13 +27,18 @@ const PlayerSchema = CollectionSchema(
       name: r'selectTimeInSeconds',
       type: IsarType.long,
     ),
-    r'subTitle': PropertySchema(
+    r'startTime': PropertySchema(
       id: 2,
+      name: r'startTime',
+      type: IsarType.dateTime,
+    ),
+    r'subTitle': PropertySchema(
+      id: 3,
       name: r'subTitle',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'title',
       type: IsarType.string,
     )
@@ -79,10 +84,11 @@ void _playerSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.futureTime);
+  writer.writeDateTime(offsets[0], object.finishTime);
   writer.writeLong(offsets[1], object.selectTimeInSeconds);
-  writer.writeString(offsets[2], object.subTitle);
-  writer.writeString(offsets[3], object.title);
+  writer.writeDateTime(offsets[2], object.startTime);
+  writer.writeString(offsets[3], object.subTitle);
+  writer.writeString(offsets[4], object.title);
 }
 
 Player _playerDeserialize(
@@ -92,10 +98,11 @@ Player _playerDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Player(
-    futureTime: reader.readDateTimeOrNull(offsets[0]),
+    finishTime: reader.readDateTimeOrNull(offsets[0]),
     selectTimeInSeconds: reader.readLongOrNull(offsets[1]),
-    subTitle: reader.readStringOrNull(offsets[2]),
-    title: reader.readStringOrNull(offsets[3]),
+    startTime: reader.readDateTimeOrNull(offsets[2]),
+    subTitle: reader.readStringOrNull(offsets[3]),
+    title: reader.readStringOrNull(offsets[4]),
   );
   object.isarId = id;
   return object;
@@ -113,8 +120,10 @@ P _playerDeserializeProp<P>(
     case 1:
       return (reader.readLongOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -209,59 +218,59 @@ extension PlayerQueryWhere on QueryBuilder<Player, Player, QWhereClause> {
 }
 
 extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
-  QueryBuilder<Player, Player, QAfterFilterCondition> futureTimeIsNull() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'futureTime',
+        property: r'finishTime',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> futureTimeIsNotNull() {
+  QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'futureTime',
+        property: r'finishTime',
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> futureTimeEqualTo(
+  QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeEqualTo(
       DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'futureTime',
+        property: r'finishTime',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> futureTimeGreaterThan(
+  QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeGreaterThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'futureTime',
+        property: r'finishTime',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> futureTimeLessThan(
+  QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeLessThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'futureTime',
+        property: r'finishTime',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Player, Player, QAfterFilterCondition> futureTimeBetween(
+  QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -269,7 +278,7 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'futureTime',
+        property: r'finishTime',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -412,6 +421,75 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'selectTimeInSeconds',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> startTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'startTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> startTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'startTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> startTimeEqualTo(
+      DateTime? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'startTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> startTimeGreaterThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'startTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> startTimeLessThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'startTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> startTimeBetween(
+    DateTime? lower,
+    DateTime? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'startTime',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -718,15 +796,15 @@ extension PlayerQueryObject on QueryBuilder<Player, Player, QFilterCondition> {}
 extension PlayerQueryLinks on QueryBuilder<Player, Player, QFilterCondition> {}
 
 extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
-  QueryBuilder<Player, Player, QAfterSortBy> sortByFutureTime() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortByFinishTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'futureTime', Sort.asc);
+      return query.addSortBy(r'finishTime', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> sortByFutureTimeDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> sortByFinishTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'futureTime', Sort.desc);
+      return query.addSortBy(r'finishTime', Sort.desc);
     });
   }
 
@@ -739,6 +817,18 @@ extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
   QueryBuilder<Player, Player, QAfterSortBy> sortBySelectTimeInSecondsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'selectTimeInSeconds', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> sortByStartTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> sortByStartTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startTime', Sort.desc);
     });
   }
 
@@ -768,15 +858,15 @@ extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
 }
 
 extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
-  QueryBuilder<Player, Player, QAfterSortBy> thenByFutureTime() {
+  QueryBuilder<Player, Player, QAfterSortBy> thenByFinishTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'futureTime', Sort.asc);
+      return query.addSortBy(r'finishTime', Sort.asc);
     });
   }
 
-  QueryBuilder<Player, Player, QAfterSortBy> thenByFutureTimeDesc() {
+  QueryBuilder<Player, Player, QAfterSortBy> thenByFinishTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'futureTime', Sort.desc);
+      return query.addSortBy(r'finishTime', Sort.desc);
     });
   }
 
@@ -801,6 +891,18 @@ extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
   QueryBuilder<Player, Player, QAfterSortBy> thenBySelectTimeInSecondsDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'selectTimeInSeconds', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByStartTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByStartTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'startTime', Sort.desc);
     });
   }
 
@@ -830,15 +932,21 @@ extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
 }
 
 extension PlayerQueryWhereDistinct on QueryBuilder<Player, Player, QDistinct> {
-  QueryBuilder<Player, Player, QDistinct> distinctByFutureTime() {
+  QueryBuilder<Player, Player, QDistinct> distinctByFinishTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'futureTime');
+      return query.addDistinctBy(r'finishTime');
     });
   }
 
   QueryBuilder<Player, Player, QDistinct> distinctBySelectTimeInSeconds() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'selectTimeInSeconds');
+    });
+  }
+
+  QueryBuilder<Player, Player, QDistinct> distinctByStartTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'startTime');
     });
   }
 
@@ -864,15 +972,21 @@ extension PlayerQueryProperty on QueryBuilder<Player, Player, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Player, DateTime?, QQueryOperations> futureTimeProperty() {
+  QueryBuilder<Player, DateTime?, QQueryOperations> finishTimeProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'futureTime');
+      return query.addPropertyName(r'finishTime');
     });
   }
 
   QueryBuilder<Player, int?, QQueryOperations> selectTimeInSecondsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'selectTimeInSeconds');
+    });
+  }
+
+  QueryBuilder<Player, DateTime?, QQueryOperations> startTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'startTime');
     });
   }
 

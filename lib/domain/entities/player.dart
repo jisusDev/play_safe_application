@@ -9,12 +9,14 @@ class Player {
   final String? title;
   final String? subTitle;
   final int? selectTimeInSeconds;
-  final DateTime? futureTime;
+  final DateTime? startTime;
+  final DateTime? finishTime;
 
   Player({
     this.title,
     this.subTitle,
     this.selectTimeInSeconds,
-    this.futureTime, 
+    this.startTime, 
+    this.finishTime, 
   });
 }
