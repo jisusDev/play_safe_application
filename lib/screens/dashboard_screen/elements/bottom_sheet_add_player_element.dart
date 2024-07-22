@@ -50,8 +50,6 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                   title: 'Crear Temporizador',
                   onTap: () {
                     if (formKey.currentState!.validate()) {
-                      final representative = representativeController.text;
-                      final playerName = playerController.text;
                       final selectTimeInMinute =
                           ref.read(selectTimeInMinuteProvider);
                       const secondsToMinute = 60;
@@ -59,8 +57,8 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                           selectTimeInMinute * secondsToMinute;
 
                       final newPlayer = Player(
-                        title: representative,
-                        subTitle: playerName,
+                        title: representativeController.text,
+                        subTitle: playerController.text,
                         selectTimeInSeconds: selectTimeInSeconds,
                       );
 
