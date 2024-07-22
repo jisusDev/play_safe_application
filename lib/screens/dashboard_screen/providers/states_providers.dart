@@ -13,6 +13,12 @@ final selectTimeInSecondProvider = StateProvider<int>((ref) {
   return valueInSeconds;
 });
 
+final updateTimeProvider = StateProvider<DateTime>((ref) {
+  final int addMinutes = ref.watch(selectTimeInMinuteProvider);
+  DateTime now = DateTime.now();
+  return now.add(Duration(minutes: addMinutes));
+});
+
 final futureTimeProvider = StateProvider<String>((ref) => '');
 
 final representativeUserProvider = StateProvider<String>((ref) => '');
