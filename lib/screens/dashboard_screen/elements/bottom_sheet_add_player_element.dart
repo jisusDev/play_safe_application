@@ -120,9 +120,9 @@ class _ButtonsTime extends ConsumerWidget {
               text: '${timeList[index]} min',
               isActive: isActive,
               onTap: () {
-                ref.read(activeButtonProvider.notifier).state = index;
                 ref.read(selectTimeInMinuteProvider.notifier).state =
                     timeList[index];
+                ref.read(activeButtonProvider.notifier).state = index;
               },
             );
           },
