@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
 
+import 'package:play_safe_application/domain/entities/player.dart';
+
 class TimerNotifier extends StateNotifier<TimerState> {
   TimerNotifier()
       : super(
@@ -27,6 +29,15 @@ class TimerNotifier extends StateNotifier<TimerState> {
         }
       },
     );
+  }
+
+  Duration? diferentTime(Player player) {
+    final startTime = player.startTime;
+    final finishTime = player.finishTime;
+
+    final diferent = finishTime?.difference(startTime ?? DateTime.now());
+
+    return diferent;
   }
 
   void stop() {

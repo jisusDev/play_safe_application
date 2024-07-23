@@ -51,7 +51,9 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                 child: PsButton(
                   title: 'Crear Temporizador',
                   onTap: () {
-                    if (formKey.currentState!.validate()) {
+                    if (formKey.currentState?.validate() ?? false) {
+                      final representative = representativeController.text;
+                      final player = playerController.text;
                       final selectTimeInMinute =
                           ref.read(selectTimeInMinuteProvider);
                       const secondsToMinute = 60;
@@ -59,11 +61,11 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                           selectTimeInMinute * secondsToMinute;
 
                       final newPlayer = Player(
-                        title: representativeController.text,
-                        subTitle: playerController.text,
+                        title: representative,
+                        subTitle: player,
                         selectTimeInSeconds: selectTimeInSeconds,
                         startTime: startTime,
-                        // finishTime: finishTime,
+                        finishTime: finishTime,
                       );
 
                       ref.watch(playerRepositoryProvider).addplayer(newPlayer);
@@ -118,7 +120,8 @@ class _ButtonsTime extends ConsumerWidget {
             mainAxisSpacing: 8,
             mainAxisExtent: 56,
           ),
-          itemCount: 6,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: timeList.length,
           itemBuilder: (BuildContext context, int index) {
             final isActive = index == activeButtonIndex;
             return PsChip(
