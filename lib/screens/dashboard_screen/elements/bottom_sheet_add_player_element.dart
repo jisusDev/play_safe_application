@@ -11,11 +11,13 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final representativeController = TextEditingController();
-    final playerController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
     final finishTime = ref.watch(updateTimeProvider);
     final startTime = DateTime.now();
+
+    final representativeController =
+        ref.watch(representativeControllerProvider);
+    final playerController = ref.watch(playerControllerProvider);
+    final formKey = GlobalKey<FormState>();
 
     return PsBottomsheetBase(
       height: 550,
@@ -29,18 +31,14 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                 label: 'Representante',
                 placeholder: 'Francisco Colemanrez',
                 controller: representativeController,
-                onChanged: (value) {
-                  ref.read(representativeUserProvider.notifier).state = value;
-                },
+                
               ),
               const SizedBox(height: 24),
               PsTextfield(
                 label: 'Jugador',
                 placeholder: 'Gema Colemanrez',
                 controller: playerController,
-                onChanged: (value) {
-                  ref.read(playerUserProvider.notifier).state = value;
-                },
+                
               ),
               const SizedBox(height: 24),
               _titleSection('Elegir Tiempo'),

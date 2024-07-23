@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // changing selection of bottomsheet buttons
@@ -19,8 +20,8 @@ final updateTimeProvider = StateProvider<DateTime>((ref) {
   return now.add(Duration(minutes: addMinutes));
 });
 
-final futureTimeProvider = StateProvider<String>((ref) => '');
+final representativeControllerProvider =
+    Provider<TextEditingController>((ref) => TextEditingController());
 
-final representativeUserProvider = StateProvider<String>((ref) => '');
-
-final playerUserProvider = StateProvider<String>((ref) => '');
+final playerControllerProvider =
+    Provider<TextEditingController>((ref) => TextEditingController());
