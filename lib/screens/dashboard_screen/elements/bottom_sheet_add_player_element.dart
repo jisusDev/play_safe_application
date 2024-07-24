@@ -11,9 +11,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final finishTime = DateTime.now().add(Duration(
-        minutes: ref.watch(
-            selectTimeInMinuteProvider))); // Calcula finishTime basado en el tiempo seleccionado
+    final finishTime = ref.watch(updateTimeProvider);
     final startTime = DateTime.now();
 
     final representativeController =
@@ -33,12 +31,14 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                 label: 'Representante',
                 placeholder: 'Francisco Colemanrez',
                 controller: representativeController,
+                
               ),
               const SizedBox(height: 24),
               PsTextfield(
                 label: 'Jugador',
                 placeholder: 'Gema Colemanrez',
                 controller: playerController,
+                
               ),
               const SizedBox(height: 24),
               _titleSection('Elegir Tiempo'),
@@ -55,18 +55,18 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                       final selectTimeInMinute =
                           ref.read(selectTimeInMinuteProvider);
                       const secondsToMinute = 60;
-                      final selectTimeInSeconds = selectTimeInMinute *
-                          secondsToMinute; 
+                      final selectTimeInSeconds =
+                          selectTimeInMinute * secondsToMinute;
 
                       final newPlayer = Player(
                         title: representative,
                         subTitle: player,
-                        duration: selectTimeInSeconds, 
+                        selectTimeInSeconds: selectTimeInSeconds,
                         startTime: startTime,
                         finishTime: finishTime,
                       );
 
-                      ref.read(playerRepositoryProvider).addplayer(newPlayer);
+                      ref.watch(playerRepositoryProvider).addplayer(newPlayer);
 
                       ref.read(timersProvider.notifier).addTimer(
                             TimerModel(

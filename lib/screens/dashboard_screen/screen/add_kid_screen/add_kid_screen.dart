@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
-import 'package:play_safe_application/domain/entities/player.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/domain/entities/timer_model.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
@@ -22,7 +21,7 @@ class AddKidScreen extends ConsumerWidget {
             ? const EmptyKidScreen()
             : Stack(
                 children: [
-                  _Body(players: players),
+                  const _Body(),
                   Positioned(
                     bottom: 32,
                     right: 30,
@@ -48,29 +47,30 @@ class AddKidScreen extends ConsumerWidget {
 }
 
 class _Body extends ConsumerWidget {
-  final List<Player> players;
-
-  const _Body({required this.players});
+  const _Body();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final players = ref.watch(playerNotifierProvider);
+    final timers = ref.watch(timersProvider);
     return ListView.builder(
       itemCount: players.length,
       itemBuilder: (context, index) {
         final player = players[index];
-        final diferentTime =
-            ref.read(timerProvider.notifier).diferentTime(player);
-        final remainingTime = diferentTime != null ? diferentTime.inSeconds : 0;
-        final duration = player.duration;
 
-        final progressPercent =
-            (duration > 0) ? (remainingTime / duration).clamp(0.0, 1.0) : 0.0;
+        final timer = timers.isNotEmpty && index < timers.length
+            ? timers[index]
+            : TimerModel(duration: 0, remainingTime: 0);
 
-        final minutes = remainingTime ~/ 60;
-        final seconds = remainingTime % 60;
+        final progressPercent = timer.remainingTime > 0
+            ? timer.remainingTime / timer.duration
+            : 0.0;
+
+        final minutes = timer.remainingTime ~/ 60;
+        final seconds = timer.remainingTime % 60;
 
         Widget childWidget;
-        if (remainingTime > 0) {
+        if (timer.remainingTime > 0) {
           childWidget = CardContainer(
             title: player.title ?? "No Title",
             subTitle: player.subTitle ?? "No Subtitle",

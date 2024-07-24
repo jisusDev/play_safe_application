@@ -11,7 +11,6 @@ class Player {
   final int? selectTimeInSeconds;
   final DateTime? startTime;
   final DateTime? finishTime;
-  final int duration;
 
   Player({
     this.title,
@@ -19,6 +18,5 @@ class Player {
     this.selectTimeInSeconds,
     this.startTime,
     this.finishTime,
-   required this.duration
   });
 }
