@@ -51,26 +51,29 @@ class _Body extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final players = ref.watch(playerNotifierProvider);
+    // final players = ref.watch(playerNotifierProvider);
+    final players = ref.watch(sortPlayerListNotifierProvider);
     final timers = ref.watch(timersProvider);
+
+
     return Padding(
       padding: const EdgeInsets.only(top: 24),
       child: ListView.builder(
         itemCount: players.length,
         itemBuilder: (context, index) {
           final player = players[index];
-      
+
           final timer = timers.isNotEmpty && index < timers.length
               ? timers[index]
               : TimerModel(duration: 0, remainingTime: 0);
-      
+
           final progressPercent = timer.remainingTime > 0
               ? timer.remainingTime / timer.duration
               : 0.0;
-      
+
           final minutes = timer.remainingTime ~/ 60;
           final seconds = timer.remainingTime % 60;
-      
+
           Widget childWidget;
           if (timer.remainingTime > 0) {
             childWidget = CardContainer(

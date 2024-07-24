@@ -22,23 +22,28 @@ const PlayerSchema = CollectionSchema(
       name: r'finishTime',
       type: IsarType.dateTime,
     ),
-    r'selectTimeInSeconds': PropertySchema(
+    r'isCompleted': PropertySchema(
       id: 1,
+      name: r'isCompleted',
+      type: IsarType.bool,
+    ),
+    r'selectTimeInSeconds': PropertySchema(
+      id: 2,
       name: r'selectTimeInSeconds',
       type: IsarType.long,
     ),
     r'startTime': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'startTime',
       type: IsarType.dateTime,
     ),
     r'subTitle': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'subTitle',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'title',
       type: IsarType.string,
     )
@@ -85,10 +90,11 @@ void _playerSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDateTime(offsets[0], object.finishTime);
-  writer.writeLong(offsets[1], object.selectTimeInSeconds);
-  writer.writeDateTime(offsets[2], object.startTime);
-  writer.writeString(offsets[3], object.subTitle);
-  writer.writeString(offsets[4], object.title);
+  writer.writeBool(offsets[1], object.isCompleted);
+  writer.writeLong(offsets[2], object.selectTimeInSeconds);
+  writer.writeDateTime(offsets[3], object.startTime);
+  writer.writeString(offsets[4], object.subTitle);
+  writer.writeString(offsets[5], object.title);
 }
 
 Player _playerDeserialize(
@@ -99,10 +105,11 @@ Player _playerDeserialize(
 ) {
   final object = Player(
     finishTime: reader.readDateTimeOrNull(offsets[0]),
-    selectTimeInSeconds: reader.readLongOrNull(offsets[1]),
-    startTime: reader.readDateTimeOrNull(offsets[2]),
-    subTitle: reader.readStringOrNull(offsets[3]),
-    title: reader.readStringOrNull(offsets[4]),
+    isCompleted: reader.readBoolOrNull(offsets[1]),
+    selectTimeInSeconds: reader.readLongOrNull(offsets[2]),
+    startTime: reader.readDateTimeOrNull(offsets[3]),
+    subTitle: reader.readStringOrNull(offsets[4]),
+    title: reader.readStringOrNull(offsets[5]),
   );
   object.isarId = id;
   return object;
@@ -118,12 +125,14 @@ P _playerDeserializeProp<P>(
     case 0:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 1:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 2:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -283,6 +292,32 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> isCompletedIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isCompleted',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> isCompletedIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isCompleted',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> isCompletedEqualTo(
+      bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isCompleted',
+        value: value,
       ));
     });
   }
@@ -808,6 +843,18 @@ extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
     });
   }
 
+  QueryBuilder<Player, Player, QAfterSortBy> sortByIsCompleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isCompleted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> sortByIsCompletedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isCompleted', Sort.desc);
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterSortBy> sortBySelectTimeInSeconds() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'selectTimeInSeconds', Sort.asc);
@@ -867,6 +914,18 @@ extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
   QueryBuilder<Player, Player, QAfterSortBy> thenByFinishTimeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'finishTime', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByIsCompleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isCompleted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByIsCompletedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isCompleted', Sort.desc);
     });
   }
 
@@ -938,6 +997,12 @@ extension PlayerQueryWhereDistinct on QueryBuilder<Player, Player, QDistinct> {
     });
   }
 
+  QueryBuilder<Player, Player, QDistinct> distinctByIsCompleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isCompleted');
+    });
+  }
+
   QueryBuilder<Player, Player, QDistinct> distinctBySelectTimeInSeconds() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'selectTimeInSeconds');
@@ -975,6 +1040,12 @@ extension PlayerQueryProperty on QueryBuilder<Player, Player, QQueryProperty> {
   QueryBuilder<Player, DateTime?, QQueryOperations> finishTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'finishTime');
+    });
+  }
+
+  QueryBuilder<Player, bool?, QQueryOperations> isCompletedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isCompleted');
     });
   }
 
