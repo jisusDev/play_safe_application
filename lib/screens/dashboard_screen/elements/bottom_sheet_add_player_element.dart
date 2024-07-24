@@ -31,14 +31,12 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                 label: 'Representante',
                 placeholder: 'Francisco Colemanrez',
                 controller: representativeController,
-                
               ),
               const SizedBox(height: 24),
               PsTextfield(
                 label: 'Jugador',
                 placeholder: 'Gema Colemanrez',
                 controller: playerController,
-                
               ),
               const SizedBox(height: 24),
               _titleSection('Elegir Tiempo'),
@@ -52,6 +50,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                     if (formKey.currentState?.validate() ?? false) {
                       final representative = representativeController.text;
                       final player = playerController.text;
+
                       final selectTimeInMinute =
                           ref.read(selectTimeInMinuteProvider);
                       const secondsToMinute = 60;
@@ -74,7 +73,6 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                               remainingTime: selectTimeInSeconds,
                             ),
                           );
-
                       Navigator.pop(context);
                     }
                   },
