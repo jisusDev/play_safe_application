@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 
-class CardContainer extends StatelessWidget {
+class CardContainer extends ConsumerWidget {
   final String? title;
   final String? subTitle;
   final double progressPercent;
@@ -18,7 +19,8 @@ class CardContainer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    
     return GestureDetector(
       onTap: onPressed,
       child: Padding(

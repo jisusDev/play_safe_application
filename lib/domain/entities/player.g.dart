@@ -17,28 +17,33 @@ const PlayerSchema = CollectionSchema(
   name: r'Player',
   id: -1052842935974721688,
   properties: {
-    r'finishTime': PropertySchema(
+    r'duration': PropertySchema(
       id: 0,
+      name: r'duration',
+      type: IsarType.long,
+    ),
+    r'finishTime': PropertySchema(
+      id: 1,
       name: r'finishTime',
       type: IsarType.dateTime,
     ),
     r'selectTimeInSeconds': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'selectTimeInSeconds',
       type: IsarType.long,
     ),
     r'startTime': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'startTime',
       type: IsarType.dateTime,
     ),
     r'subTitle': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'subTitle',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'title',
       type: IsarType.string,
     )
@@ -84,11 +89,12 @@ void _playerSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.finishTime);
-  writer.writeLong(offsets[1], object.selectTimeInSeconds);
-  writer.writeDateTime(offsets[2], object.startTime);
-  writer.writeString(offsets[3], object.subTitle);
-  writer.writeString(offsets[4], object.title);
+  writer.writeLong(offsets[0], object.duration);
+  writer.writeDateTime(offsets[1], object.finishTime);
+  writer.writeLong(offsets[2], object.selectTimeInSeconds);
+  writer.writeDateTime(offsets[3], object.startTime);
+  writer.writeString(offsets[4], object.subTitle);
+  writer.writeString(offsets[5], object.title);
 }
 
 Player _playerDeserialize(
@@ -98,11 +104,12 @@ Player _playerDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Player(
-    finishTime: reader.readDateTimeOrNull(offsets[0]),
-    selectTimeInSeconds: reader.readLongOrNull(offsets[1]),
-    startTime: reader.readDateTimeOrNull(offsets[2]),
-    subTitle: reader.readStringOrNull(offsets[3]),
-    title: reader.readStringOrNull(offsets[4]),
+    duration: reader.readLong(offsets[0]),
+    finishTime: reader.readDateTimeOrNull(offsets[1]),
+    selectTimeInSeconds: reader.readLongOrNull(offsets[2]),
+    startTime: reader.readDateTimeOrNull(offsets[3]),
+    subTitle: reader.readStringOrNull(offsets[4]),
+    title: reader.readStringOrNull(offsets[5]),
   );
   object.isarId = id;
   return object;
@@ -116,14 +123,16 @@ P _playerDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 1:
-      return (reader.readLongOrNull(offset)) as P;
-    case 2:
       return (reader.readDateTimeOrNull(offset)) as P;
+    case 2:
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -218,6 +227,59 @@ extension PlayerQueryWhere on QueryBuilder<Player, Player, QWhereClause> {
 }
 
 extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
+  QueryBuilder<Player, Player, QAfterFilterCondition> durationEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'duration',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> durationGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'duration',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> durationLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'duration',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> durationBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'duration',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterFilterCondition> finishTimeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -796,6 +858,18 @@ extension PlayerQueryObject on QueryBuilder<Player, Player, QFilterCondition> {}
 extension PlayerQueryLinks on QueryBuilder<Player, Player, QFilterCondition> {}
 
 extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
+  QueryBuilder<Player, Player, QAfterSortBy> sortByDuration() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'duration', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> sortByDurationDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'duration', Sort.desc);
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterSortBy> sortByFinishTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'finishTime', Sort.asc);
@@ -858,6 +932,18 @@ extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
 }
 
 extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
+  QueryBuilder<Player, Player, QAfterSortBy> thenByDuration() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'duration', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByDurationDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'duration', Sort.desc);
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterSortBy> thenByFinishTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'finishTime', Sort.asc);
@@ -932,6 +1018,12 @@ extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
 }
 
 extension PlayerQueryWhereDistinct on QueryBuilder<Player, Player, QDistinct> {
+  QueryBuilder<Player, Player, QDistinct> distinctByDuration() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'duration');
+    });
+  }
+
   QueryBuilder<Player, Player, QDistinct> distinctByFinishTime() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'finishTime');
@@ -969,6 +1061,12 @@ extension PlayerQueryProperty on QueryBuilder<Player, Player, QQueryProperty> {
   QueryBuilder<Player, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
+    });
+  }
+
+  QueryBuilder<Player, int, QQueryOperations> durationProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'duration');
     });
   }
 
