@@ -12,6 +12,7 @@ class AddKidScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final players = ref.watch(playerNotifierProvider);
+    ref.watch(playerNotifierProvider.notifier).loadPlayers();
 
     return Scaffold(
       backgroundColor: PsAppcolor.background,
@@ -57,7 +58,6 @@ class _Body extends ConsumerWidget {
       child: ListView.builder(
         itemCount: players.length,
         itemBuilder: (context, index) {
-          ref.watch(playerNotifierProvider.notifier).loadPlayers();
           final player = players[index];
           final finishTime = player.finishTime;
 
@@ -114,13 +114,29 @@ class _Body extends ConsumerWidget {
   }
 
   double calculateProgress(Player player) {
-    if (player.startTime == null || player.finishTime == null) {
-      return 0.0;
-    }
-    final now = DateTime.now();
-    final totalDuration = player.finishTime!.difference(player.startTime!);
-    final elapsedDuration = now.difference(player.startTime!);
-    return (elapsedDuration.inSeconds / totalDuration.inSeconds)
-        .clamp(0.0, 1.0);
+  final DateTime defaultTime = DateTime(1970, 1, 1);
+  final startTime = player.startTime ?? defaultTime;
+  final finishTime = player.finishTime ?? defaultTime;
+
+  if (startTime == defaultTime || finishTime == defaultTime) {
+    return 0.0;
   }
+
+  final now = DateTime.now();
+  final totalDuration = finishTime.difference(startTime);
+  final elapsedDuration = now.difference(startTime);
+  return (elapsedDuration.inSeconds / totalDuration.inSeconds).clamp(0.0, 1.0);
+}
+
+
+  // double calculateProgress(Player player) {
+  //   if (player.startTime == null || player.finishTime == null) {
+  //     return 0.0;
+  //   }
+  //   final now = DateTime.now();
+  //   final totalDuration = player.finishTime!.difference(player.startTime!);
+  //   final elapsedDuration = now.difference(player.startTime!);
+  //   return (elapsedDuration.inSeconds / totalDuration.inSeconds)
+  //       .clamp(0.0, 1.0);
+  // }
 }
