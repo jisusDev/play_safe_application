@@ -67,12 +67,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
 
                       ref.watch(playerRepositoryProvider).addplayer(newPlayer);
 
-                      ref.read(timersProvider.notifier).addTimer(
-                            TimerModel(
-                              duration: selectTimeInSeconds,
-                              remainingTime: selectTimeInSeconds,
-                            ),
-                          );
+                      
                       Navigator.pop(context);
                     }
                   },
