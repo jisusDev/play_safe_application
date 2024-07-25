@@ -8,7 +8,6 @@ final playerRepositoryProvider = Provider<LocalStorageRepositoryImpl>((ref) {
   return LocalStorageRepositoryImpl(dataSource);
 });
 
-
 class PlayerNotifier extends StateNotifier<List<Player>> {
   final LocalStorageRepositoryImpl repository;
 
@@ -20,9 +19,20 @@ class PlayerNotifier extends StateNotifier<List<Player>> {
     final players = await repository.getAllPlayers();
     state = players;
   }
+
+  Future<void> addPlayer(Player player) async {
+    await repository.addplayer(player);
+    await loadPlayers();
+  }
+
+  Future<void> deletePlayer(int id) async {
+    await repository.deletePlayer(id);
+    await loadPlayers();
+  }
 }
 
-final playerNotifierProvider = StateNotifierProvider<PlayerNotifier, List<Player>>((ref) {
+final playerNotifierProvider =
+    StateNotifierProvider<PlayerNotifier, List<Player>>((ref) {
   final repository = ref.watch(playerRepositoryProvider);
   return PlayerNotifier(repository);
 });

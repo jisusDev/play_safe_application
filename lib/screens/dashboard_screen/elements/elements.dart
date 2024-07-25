@@ -4,3 +4,4 @@ export 'package:play_safe_application/screens/dashboard_screen/elements/modals/m
 
 export 'package:play_safe_application/screens/dashboard_screen/elements/bottom_sheet_add_player_element.dart';
 
+export 'package:play_safe_application/screens/dashboard_screen/elements/empty_kid/empty_kid_screen.dart';
