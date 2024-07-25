@@ -64,11 +64,9 @@ class _Body extends ConsumerWidget {
           if (finishTime != null) {
             final countdownTime = ref.watch(countdownProvider(finishTime));
 
-            final bool isTimeUp = countdownTime == "00:00";
-
             return Column(
               children: [
-                if (isTimeUp)
+                if (countdownTime == "00:00")
                   PsCardEndPlayer(
                     title: player.title ?? "No Title",
                     subTitle: player.subTitle ?? "No Subtitle",
@@ -78,7 +76,14 @@ class _Body extends ConsumerWidget {
                         barrierColor: PsAppcolor.black.withOpacity(0.5),
                         builder: (context) {
                           return ModalEndPlayerElement(
-                            onTap: () {},
+                            onTap: () {
+                              final playerid = player.isarId;
+                              final delate = ref
+                                  .watch(playerRepositoryProvider)
+                                  .deletePlayer(playerid ?? 0);
+                              delate;
+                              Navigator.pop(context);
+                            },
                           );
                         },
                       );
@@ -96,7 +101,14 @@ class _Body extends ConsumerWidget {
                         barrierColor: PsAppcolor.black.withOpacity(0.5),
                         builder: (context) {
                           return ModalAnticipatedEndPlayerElement(
-                            onTap: () {},
+                            onTap: () {
+                              final playerid = player.isarId;
+                              final delate = ref
+                                  .watch(playerRepositoryProvider)
+                                  .deletePlayer(playerid ?? 0);
+                              delate;
+                              Navigator.pop(context);
+                            },
                           );
                         },
                       );
@@ -114,29 +126,18 @@ class _Body extends ConsumerWidget {
   }
 
   double calculateProgress(Player player) {
-  final DateTime defaultTime = DateTime(1970, 1, 1);
-  final startTime = player.startTime ?? defaultTime;
-  final finishTime = player.finishTime ?? defaultTime;
+    final DateTime defaultTime = DateTime(1970, 1, 1);
+    final startTime = player.startTime ?? defaultTime;
+    final finishTime = player.finishTime ?? defaultTime;
 
-  if (startTime == defaultTime || finishTime == defaultTime) {
-    return 0.0;
+    if (startTime == defaultTime || finishTime == defaultTime) {
+      return 0.0;
+    }
+
+    final now = DateTime.now();
+    final totalDuration = finishTime.difference(startTime);
+    final elapsedDuration = now.difference(startTime);
+    return (elapsedDuration.inSeconds / totalDuration.inSeconds)
+        .clamp(0.0, 1.0);
   }
-
-  final now = DateTime.now();
-  final totalDuration = finishTime.difference(startTime);
-  final elapsedDuration = now.difference(startTime);
-  return (elapsedDuration.inSeconds / totalDuration.inSeconds).clamp(0.0, 1.0);
-}
-
-
-  // double calculateProgress(Player player) {
-  //   if (player.startTime == null || player.finishTime == null) {
-  //     return 0.0;
-  //   }
-  //   final now = DateTime.now();
-  //   final totalDuration = player.finishTime!.difference(player.startTime!);
-  //   final elapsedDuration = now.difference(player.startTime!);
-  //   return (elapsedDuration.inSeconds / totalDuration.inSeconds)
-  //       .clamp(0.0, 1.0);
-  // }
 }
