@@ -4,7 +4,6 @@ import 'package:play_safe_application/config/config.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
 import 'package:play_safe_application/domain/entities/player.dart';
-import 'package:play_safe_application/domain/entities/timer_model.dart';
 
 class BottomSheetAddPlayerElement extends ConsumerWidget {
   const BottomSheetAddPlayerElement({super.key});
@@ -64,10 +63,7 @@ class BottomSheetAddPlayerElement extends ConsumerWidget {
                         startTime: startTime,
                         finishTime: finishTime,
                       );
-
                       ref.watch(playerRepositoryProvider).addplayer(newPlayer);
-
-                      
                       Navigator.pop(context);
                     }
                   },

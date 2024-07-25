@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
+import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/domain/entities/player.dart';
 import 'package:play_safe_application/screens/dashboard_screen/elements/elements.dart';
-import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/screens/dashboard_screen/providers/providers.dart';
-import 'package:play_safe_application/screens/dashboard_screen/screen/empty_kid_screen/empty_kid_screen.dart';
 
 class AddKidScreen extends ConsumerWidget {
   const AddKidScreen({super.key});
@@ -58,6 +57,7 @@ class _Body extends ConsumerWidget {
       child: ListView.builder(
         itemCount: players.length,
         itemBuilder: (context, index) {
+          ref.watch(playerNotifierProvider.notifier).loadPlayers();
           final player = players[index];
           final finishTime = player.finishTime;
 
