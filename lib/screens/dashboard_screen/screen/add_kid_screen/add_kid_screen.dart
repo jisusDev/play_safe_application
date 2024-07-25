@@ -1,3 +1,4 @@
+// add_kid_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_safe_application/config/config.dart';
@@ -18,7 +19,7 @@ class AddKidScreen extends ConsumerWidget {
       backgroundColor: PsAppcolor.background,
       body: SafeArea(
         child: players.isEmpty
-            ? const EmptyKidScreen()
+            ? const PSEmptyKid()
             : Stack(
                 children: [
                   const _Body(),
@@ -53,12 +54,12 @@ class _Body extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final players = ref.watch(playerNotifierProvider);
     final timers = ref.watch(timersProvider);
+
     return ListView.builder(
       itemCount: players.length,
       itemBuilder: (context, index) {
         final player = players[index];
-
-        final timer = timers.isNotEmpty && index < timers.length
+        final timer = (timers.isNotEmpty && index < timers.length)
             ? timers[index]
             : TimerModel(duration: 0, remainingTime: 0);
 
