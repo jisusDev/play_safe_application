@@ -3,22 +3,8 @@ import 'package:play_safe_application/config/config.dart';
 import 'package:play_safe_application/widgets/widgets.dart';
 import 'package:play_safe_application/screens/dashboard_screen/elements/elements.dart';
 
-class EmptyKidScreen extends StatelessWidget {
-  const EmptyKidScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: PsAppcolor.background,
-      body: SafeArea(
-        child: _Body(),
-      ),
-    );
-  }
-}
-
-class _Body extends StatelessWidget {
-  const _Body();
+class PSEmptyKid extends StatelessWidget {
+  const PSEmptyKid({super.key});
 
   @override
   Widget build(BuildContext context) {
