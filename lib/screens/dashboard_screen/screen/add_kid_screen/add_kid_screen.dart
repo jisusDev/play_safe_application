@@ -18,7 +18,7 @@ class AddKidScreen extends ConsumerWidget {
       backgroundColor: PsAppcolor.background,
       body: SafeArea(
         child: players.isEmpty
-            ? const EmptyKidScreen()
+            ? const PSEmptyKid()
             : Stack(
                 children: [
                   const _Body(),
